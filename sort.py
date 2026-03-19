@@ -29,7 +29,7 @@ def merge(arr:list, left:int, mid:int, right:int):
 
 # algorithm from sorting review slides and lecture slides (slide 89) 
 # merge sort takes in a one-dimensional array and returns the sorted one-dimension array
-def merge_sort(arr:list, left:int, right:int):
+def merge_sort(arr, left, right):
    if left < right:
         mid = left + round((right - left) / 2) # python does not automatically recognize left and right as integers
         # divide arr into subarrays
@@ -62,7 +62,7 @@ def partition(arr, low, high) -> int:
     return down
 
 
-def quick_sort(arr, low, high):
+def quick_sort(arr:list, low:int, high:int):
     if low < high:
         pivot = partition(arr, low, high)
         quick_sort(arr, low, pivot - 1)
