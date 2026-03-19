@@ -1,5 +1,7 @@
+# see "Sorting" lecture slides, slide 90
 # helper function to merge together the subarrays
-def merge(arr, left, mid, right):
+# in python both arrays and lists are mutable objects. In our implementation the dataset is passed in as a list.
+def merge(arr:list, left:int, mid:int, right:int):
     n1 = mid - left + 1
     n2 = right - mid
     X, Y = [], []
@@ -25,15 +27,51 @@ def merge(arr, left, mid, right):
         j += 1
         k += 1
 
-def merge_sort(arr, left, right):
+# algorithm from sorting review slides and lecture slides (slide 89) 
+# merge sort takes in a one-dimensional array and returns the sorted one-dimension array
+def merge_sort(arr:list, left:int, right:int):
    if left < right:
-        mid = left + round((right - left) / 2) # python does not automatically recognize end and start as integers
+        mid = left + round((right - left) / 2) # python does not automatically recognize left and right as integers
         # divide arr into subarrays
         merge_sort(arr, left, mid)
         merge_sort(arr, mid + 1, right)
 
         # merge the sorted subarrays
         merge(arr, left, mid, right)
+
+
+def partition(arr, low, high):
+    pivot = arr[low]
+    up, down = low, high
+    while up < down:
+        for j in range(up, high):
+            if arr[up] > pivot:
+                break
+            up += 1
+        for j in range(high,)
+
+
+        
+    while(up<down)
+    {
+        for (int j = up; j < high; j++)
+        {
+            if(array[up]>pivot)
+                break;
+            up++;
+        }
+        for (int j = high; j > low; j--)
+        {
+            if(array[down]<pivot)
+                break;
+            down--;
+        }
+        if(up<down)
+            swap(&array[up], &array[down]);
+    }
+    swap(&array[low], &array[down]);
+    return down;
+    pass
 
 def quick_sort(arr):
     pass

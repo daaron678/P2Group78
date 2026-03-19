@@ -17,7 +17,8 @@ if __name__ == "__main__":
 
     print("\n\nSorting using Merge Sort...")
     start_time = time.perf_counter()
-    sort.merge_sort(data.copy())
+    # pass in array, left index, right index
+    sort.merge_sort(data.copy(), 0, len(data.copy()) -1)
     end_time = time.perf_counter()
 
     ms_time = end_time - start_time
