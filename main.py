@@ -1,13 +1,13 @@
 from dataset import load_data
 
 # helper function to merge together the subarrays
-def merge():
+def merge(arr, left, mid, right):
     pass
 
-def mergeSortInt(arr):
+def mergeSort(arr):
    pass
 
-def quickSortInt(type):
+def quickSort(arr):
     pass
 
 if __name__ == '__main__':
