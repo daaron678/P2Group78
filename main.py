@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
     print("Sorting using Quick Sort...")
     start_time = time.perf_counter()
-    sort.quick_sort(data.copy())
+    sort.quick_sort(data.copy(), 0, len(data.copy()) -1)
     end_time = time.perf_counter()
 
     qs_time = end_time - start_time

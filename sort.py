@@ -39,8 +39,7 @@ def merge_sort(arr:list, left:int, right:int):
         # merge the sorted subarrays
         merge(arr, left, mid, right)
 
-
-def partition(arr, low, high):
+def partition(arr, low, high) -> int:
     pivot = arr[low]
     up, down = low, high
     while up < down:
@@ -48,30 +47,23 @@ def partition(arr, low, high):
             if arr[up] > pivot:
                 break
             up += 1
-        for j in range(high,)
+        for j in range(high, low, -1):
+            if arr[down] < pivot:
+                break
+            down -= 1
+        if up < down:
+            # equivalent to C++ swap()
+            up_val = arr[up]
+            arr[up] = arr[down]
+            arr[down] = up_val
+    low_val = arr[low]
+    arr[low] = arr[down]
+    arr[down] = low_val
+    return down
 
 
-        
-    while(up<down)
-    {
-        for (int j = up; j < high; j++)
-        {
-            if(array[up]>pivot)
-                break;
-            up++;
-        }
-        for (int j = high; j > low; j--)
-        {
-            if(array[down]<pivot)
-                break;
-            down--;
-        }
-        if(up<down)
-            swap(&array[up], &array[down]);
-    }
-    swap(&array[low], &array[down]);
-    return down;
-    pass
-
-def quick_sort(arr):
-    pass
+def quick_sort(arr, low, high):
+    if low < high:
+        pivot = partition(arr, low, high)
+        quick_sort(arr, low, pivot - 1)
+        quick_sort(arr, pivot + 1, high)
