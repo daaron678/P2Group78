@@ -1,6 +1,4 @@
-from array import array
-import numpy as np
-# use numpy.array?
+from dataset import load_data
 
 # helper function to merge together the subarrays
 def merge():
@@ -12,11 +10,6 @@ def mergeSortInt(arr):
 def quickSortInt(type):
     pass
 
-def main():
-    nums = [9,8,6,5,7,3,1,2]
-    print(array.typecode)
-    # mergeSortInt()
-
-
 if __name__ == '__main__':
-    main()
+    gender_data = load_data("gender")
+    print(gender_data)
