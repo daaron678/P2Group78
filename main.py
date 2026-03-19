@@ -1,15 +1,38 @@
-from dataset import load_data
+import time
 
-# helper function to merge together the subarrays
-def merge(arr, left, mid, right):
-    pass
+import dataset
+import terminal
+import sort
 
-def mergeSort(arr):
-   pass
+if __name__ == "__main__":
+    columns = [
+        column
+        for column in dataset.get_column_names()
+        if not column.startswith("race:")
+    ]
+    selection = terminal.select_from_list(
+        columns, "Which column would you like to sort?"
+    )
+    data = dataset.load_data(selection)
 
-def quickSort(arr):
-    pass
+    print("Sorting using Merge Sort...")
+    start_time = time.perf_counter()
+    sort.merge_sort(data.copy())
+    end_time = time.perf_counter()
 
-if __name__ == '__main__':
-    gender_data = load_data("gender")
-    print(gender_data)
+    ms_time = end_time - start_time
+
+    print(f"Merge Sort completed in {ms_time:.6f} seconds.")
+
+    print("Sorting using Quick Sort...")
+    start_time = time.perf_counter()
+    sort.quick_sort(data.copy())
+    end_time = time.perf_counter()
+
+    qs_time = end_time - start_time
+    print(f"Quick Sort completed in {qs_time:.6f} seconds.")
+
+    if ms_time < qs_time:
+        print("Merge Sort was faster.")
+    else:
+        print("Quick Sort was faster.")
