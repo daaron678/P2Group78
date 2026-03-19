@@ -15,14 +15,14 @@ if __name__ == "__main__":
     )
     data = dataset.load_data(selection)
 
-    print("Sorting using Merge Sort...")
+    print("\n\nSorting using Merge Sort...")
     start_time = time.perf_counter()
     sort.merge_sort(data.copy())
     end_time = time.perf_counter()
 
     ms_time = end_time - start_time
 
-    print(f"Merge Sort completed in {ms_time:.6f} seconds.")
+    print(f"Merge Sort completed in {ms_time:.6f} seconds.\n")
 
     print("Sorting using Quick Sort...")
     start_time = time.perf_counter()
@@ -30,9 +30,11 @@ if __name__ == "__main__":
     end_time = time.perf_counter()
 
     qs_time = end_time - start_time
-    print(f"Quick Sort completed in {qs_time:.6f} seconds.")
+    print(f"Quick Sort completed in {qs_time:.6f} seconds.\n")
 
     if ms_time < qs_time:
         print("Merge Sort was faster.")
     else:
         print("Quick Sort was faster.")
+
+    print("\n")
