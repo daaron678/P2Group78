@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     # the following columns take data as floats represented as strings
     if selection in ("bmi", "hbA1c_level"):
-        pass
+        data = list(map(float, data))
 
     print("Sorting using Quick Sort...")
     start_time = time.perf_counter()
