@@ -15,12 +15,18 @@ if __name__ == "__main__":
     )
     data = dataset.load_data(selection)
 
-    # EDITS IN PROGRESS
+    # note that each column is represented as a string. (ex. "2" instead of 2)
+
+    # in dataset, certain ages are represented as floats which is not needed. We will change the data type to int.
     if selection in ("age"):
-        # note that the 'age' column has some digits with 2 decimal places represented as strings
         # cannot map string representing float to int, so first map as float
         data = list(map(float, data))
         data = list(map(int, data))
+
+    # the following columns take data as floats represented as strings
+    if selection in ("bmi", "hbA1c_level"):
+        pass
+
 
     print("\n\nSorting using Merge Sort...")
     start_time = time.perf_counter()
