@@ -18,7 +18,7 @@ if __name__ == "__main__":
     print("\n\nSorting using Merge Sort...")
     start_time = time.perf_counter()
     # pass in array, left index, right index
-    sort.merge_sort(data.copy(), 0, len(data.copy()) -1)
+    sort.merge_sort(data, 0, len(data) -1)
     end_time = time.perf_counter()
 
     ms_time = end_time - start_time
@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
     print("Sorting using Quick Sort...")
     start_time = time.perf_counter()
-    sort.quick_sort(data.copy(), 0, len(data.copy()) -1)
+    sort.quick_sort(data, 0, len(data) -1)
     end_time = time.perf_counter()
 
     qs_time = end_time - start_time
