@@ -27,6 +27,13 @@ if __name__ == "__main__":
     if selection in ("bmi", "hbA1c_level"):
         pass
 
+    print("Sorting using Quick Sort...")
+    start_time = time.perf_counter()
+    sort.quick_sort(data, 0, len(data) -1)
+    end_time = time.perf_counter()
+
+    qs_time = end_time - start_time
+    print(f"Quick Sort completed in {qs_time:.6f} seconds.\n")
 
     print("\n\nSorting using Merge Sort...")
     start_time = time.perf_counter()
@@ -38,13 +45,6 @@ if __name__ == "__main__":
 
     print(f"Merge Sort completed in {ms_time:.6f} seconds.\n")
 
-    print("Sorting using Quick Sort...")
-    start_time = time.perf_counter()
-    sort.quick_sort(data, 0, len(data) -1)
-    end_time = time.perf_counter()
-
-    qs_time = end_time - start_time
-    print(f"Quick Sort completed in {qs_time:.6f} seconds.\n")
 
     if ms_time < qs_time:
         print("Merge Sort was faster.")
