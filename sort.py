@@ -1,15 +1,17 @@
 # see "Sorting" lecture slides, slide 90
 # helper function to merge together the subarrays
 # in python both arrays and lists are mutable objects. In our implementation the dataset is passed in as a list.
+# see "Sorting" lecture slides, slide 90
 def merge(arr:list, left:int, mid:int, right:int):
     n1 = mid - left + 1
     n2 = right - mid
+    # lists are mutable and we don't specify the container's size
     X, Y = [], []
     [X.append(arr[left + i]) for i in range(n1)]
     [Y.append(arr[mid + 1 + j]) for j in range(n2)]
     # merge the arrays X and Y into arr
     i, j, k = 0, 0, left
-    while i < n1 & j < n2:
+    while i < n1 and j < n2:
         if X[i] <= Y[j]:
             arr[k] = X[i]
             i += 1
@@ -31,13 +33,16 @@ def merge(arr:list, left:int, mid:int, right:int):
 # merge sort takes in a one-dimensional array and returns the sorted one-dimension array
 def merge_sort(arr, left, right):
    if left < right:
-        mid = left + round((right - left) / 2) # python does not automatically recognize left and right as integers
+        # python does not automatically recognize left and right as integers. We need to round down the expression. Example: if mid is 1.5,
+        # in merge_sort implemented in C++ this would give a mid value of 1.
+        # so cast as an int: https://stackoverflow.com/questions/17141979/round-a-floating-point-number-down-to-the-nearest-integer
+        mid = left + int((right - left) / 2) 
         # divide arr into subarrays
         merge_sort(arr, left, mid)
         merge_sort(arr, mid + 1, right)
 
         # merge the sorted subarrays
-        merge(arr, left, mid, right)
+        arr = merge(arr, left, mid, right)
 
 def partition(arr, low, high) -> int:
     pivot = arr[low]
@@ -53,14 +58,13 @@ def partition(arr, low, high) -> int:
             down -= 1
         if up < down:
             # equivalent to C++ swap()
-            up_val = arr[up]
+            t = arr[up]
             arr[up] = arr[down]
-            arr[down] = up_val
-    low_val = arr[low]
+            arr[down] = t   
+    t = arr[low]
     arr[low] = arr[down]
-    arr[down] = low_val
+    arr[down] = t
     return down
-
 
 def quick_sort(arr:list, low:int, high:int):
     if low < high:
