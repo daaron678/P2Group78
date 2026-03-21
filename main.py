@@ -15,6 +15,13 @@ if __name__ == "__main__":
     )
     data = dataset.load_data(selection)
 
+    # EDITS IN PROGRESS
+    if selection in ("age"):
+        # note that the 'age' column has some digits with 2 decimal places represented as strings
+        # cannot map string representing float to int, so first map as float
+        data = list(map(float, data))
+        data = list(map(int, data))
+
     print("\n\nSorting using Merge Sort...")
     start_time = time.perf_counter()
     # pass in array, left index, right index
