@@ -15,7 +15,27 @@ def load_data(column_name, csv_path="diabetes_dataset.csv"):
     with open(csv_path, mode="r", newline="") as file:
         reader = csv.DictReader(file)
         for row in reader:
-            data.append(row[column_name])
+            raw = row[column_name]
+
+            # weed out empty/null values
+            if raw is None:
+                data.append(None)
+                continue
+            value = raw.strip()
+            if value == "":
+                data.append(None)
+                continue
+
+            # try to convert to numeric type if possible, otherwise keep as string
+            try:
+                f = float(value)
+                if f.is_integer():
+                    data.append(int(f))
+                else:
+                    data.append(f)
+            except ValueError:
+                data.append(value)
+
     return data
 
 
