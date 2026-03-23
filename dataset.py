@@ -39,21 +39,22 @@ def load_data(column_name, csv_path="diabetes_dataset.csv"):
 
 def load_data_cat(column_name, csv_path="diabetes_dataset.csv"):
     """Load all values from a single categorical column in the CSV file.
+    This function coverts the categorical column of data into numeric 
+    representation for a faster execution time using the sorting algorithms.
 
     Returns:
-        A list of numeric values representing categories in the column, and
+        A list of values for the requested column
+        A list of numeric values representing categories in the column,
         A dictionary mapping numeric codes (keys) to string representation of category (vals).
     """
     data = load_data(column_name, csv_path)
-    data_codes = {}
     # sorting by categories of strings is computationally expensive for quick_sort (3 minutes for gender)
-    data = pd.Categorical(data)
-    codes = list(map(int, data.codes))
+    data_cat = pd.Categorical(data)
+    codes = list(map(int, data_cat.codes))
     codes_map = {}
-    for index, cat in enumerate(data.categories):
+    for index, cat in enumerate(data_cat.categories):
         codes_map[index] = cat
-
-    return codes, codes_map
+    return data, codes, codes_map
 
 
 

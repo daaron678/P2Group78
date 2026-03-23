@@ -10,15 +10,15 @@ if __name__ == "__main__":
     print(f"\nSorting the '{selection}' column...")
 
     is_correct = False
-    data, expected, actual = [], [], []
-    codes_map = {}
+    data, codes, expected, actual = [], [], [], []
     ms_time = 0
+    codes_map = {}
     categorical = ("gender", "smoking_history")
 
     print("\nSorting using Merge Sort...\n")
     if selection in categorical:
-        data, codes_map = dataset.load_data_cat(selection)
-        is_correct, expected, actual, ms_time = sort.check_sort_fn_cat(sort.merge_sort, data, codes_map)
+        data, codes, codes_map = dataset.load_data_cat(selection)
+        is_correct, expected, actual, ms_time = sort.check_sort_fn_cat(sort.merge_sort, data, codes, codes_map)
 
     else:
         data = dataset.load_data(selection)
@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     print('\nSorting using "Quick" Sort...\n')
     if selection in categorical:
-        is_correct, expected, actual, qs_time = sort.check_sort_fn_cat(sort.quick_sort, data, codes_map)
+        is_correct, expected, actual, qs_time = sort.check_sort_fn_cat(sort.quick_sort, data, codes, codes_map)
     else:
         is_correct, expected, actual, qs_time = sort.check_sort_fn(sort.quick_sort, data)
     print(
