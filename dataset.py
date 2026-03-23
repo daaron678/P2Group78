@@ -1,5 +1,5 @@
 import csv
-
+import pandas as pd
 
 def load_data(column_name, csv_path="diabetes_dataset.csv"):
     """Load all values from a single column in the CSV file.
@@ -35,8 +35,26 @@ def load_data(column_name, csv_path="diabetes_dataset.csv"):
                     data.append(f)
             except ValueError:
                 data.append(value)
-
     return data
+
+def load_data_cat(column_name, csv_path="diabetes_dataset.csv"):
+    """Load all values from a single categorical column in the CSV file.
+
+    Returns:
+        A list of numeric values representing categories in the column, and
+        A dictionary mapping numeric codes (keys) to string representation of category (vals).
+    """
+    data = load_data(column_name, csv_path)
+    data_codes = {}
+    # sorting by categories of strings is computationally expensive for quick_sort (3 minutes for gender)
+    data = pd.Categorical(data)
+    codes = list(map(int, data.codes))
+    codes_map = {}
+    for index, cat in enumerate(data.categories):
+        codes_map[index] = cat
+
+    return codes, codes_map
+
 
 
 def get_column_names(csv_path="diabetes_dataset.csv"):

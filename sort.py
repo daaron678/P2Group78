@@ -25,6 +25,23 @@ def check_sort_fn(sort_fn: callable, data: list):
     end_time = time.perf_counter()
     return data == expected, expected, data, end_time - start_time
 
+def check_sort_fn_cat(sort_fn: callable, data: list, codes_map: dict):
+    """Ditto except the sorting function is called on the numeric 
+    representation of the categorical data. The sorted values are then
+    remapped to their string representation and verified for correctness.
+
+    Args:
+        sort_fn: Callable that sorts `data` in-place.
+        data: List to sort (modified in-place).
+        codes_map: Dict containing keys (numeric representation of categories) and vals (string representation)
+    """
+    expected = sorted(data)
+    start_time = time.perf_counter()
+    sort_fn(data, 0, len(data) - 1)
+    end_time = time.perf_counter()
+    codes = [codes_map[val] for val in data]
+    return codes == expected, expected, codes, end_time - start_time
+
 # see "Sorting" lecture slides, slide 90
 def merge(arr: list, left: int, mid: int, right: int) -> None:
     # use Python's slice indexing to create left and right copies for the sorted left half and sorted right half

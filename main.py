@@ -6,20 +6,34 @@ if __name__ == "__main__":
     selection = terminal.select_from_list(
         dataset.get_column_names(), "Which column would you like to sort?"
     )
-    data = dataset.load_data(selection)
 
     print(f"\nSorting the '{selection}' column...")
 
+    is_correct = False
+    data, expected, actual = [], [], []
+    codes_map = {}
+    ms_time = 0
+    categorical = ("gender", "smoking_history")
+
     print("\nSorting using Merge Sort...\n")
-    is_correct, expected, actual, ms_time = sort.check_sort_fn(sort.merge_sort, data)
+    if selection in categorical:
+        data, codes_map = dataset.load_data_cat(selection)
+        is_correct, expected, actual, ms_time = sort.check_sort_fn_cat(sort.merge_sort, data, codes_map)
+
+    else:
+        data = dataset.load_data(selection)
+        is_correct, expected, actual, ms_time = sort.check_sort_fn(sort.merge_sort, data)
     print(
-        f"Merge Sort { 'succeeded' if is_correct else 'failed' } in {ms_time:.6f} seconds.\n"
-    )
+            f"Merge Sort { 'succeeded' if is_correct else 'failed' } in {ms_time:.6f} seconds.\n"
+        )
     print(f"Expected: {expected[:10]} ... {expected[-10:]}")
     print(f"Actual:   {actual[:10]} ... {actual[-10:]}")
 
     print('\nSorting using "Quick" Sort...\n')
-    is_correct, expected, actual, qs_time = sort.check_sort_fn(sort.quick_sort, data)
+    if selection in categorical:
+        is_correct, expected, actual, qs_time = sort.check_sort_fn_cat(sort.quick_sort, data, codes_map)
+    else:
+        is_correct, expected, actual, qs_time = sort.check_sort_fn(sort.quick_sort, data)
     print(
         f"Quick Sort { 'succeeded' if is_correct else 'failed' } in {qs_time:.6f} seconds.\n"
     )
