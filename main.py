@@ -19,7 +19,6 @@ if __name__ == "__main__":
     if selection in categorical:
         data, codes, codes_map = dataset.load_data_cat(selection)
         is_correct, expected, actual, ms_time = sort.check_sort_fn_cat(sort.merge_sort, data, codes, codes_map)
-
     else:
         data = dataset.load_data(selection)
         is_correct, expected, actual, ms_time = sort.check_sort_fn(sort.merge_sort, data)
