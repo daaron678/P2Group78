@@ -25,8 +25,9 @@ def check_sort_fn(sort_fn: callable, data: list):
     end_time = time.perf_counter()
     return data == expected, expected, data, end_time - start_time
 
-
+# see "Sorting" lecture slides, slide 90
 def merge(arr: list, left: int, mid: int, right: int) -> None:
+    # use Python's slice indexing to create left and right copies for the sorted left half and sorted right half
     X = arr[left : mid + 1]
     Y = arr[mid + 1 : right + 1]
     i = j = 0
@@ -48,7 +49,7 @@ def merge(arr: list, left: int, mid: int, right: int) -> None:
         j += 1
         k += 1
 
-
+# algorithm from sorting review slides and lecture slides (slide 89) 
 def merge_sort(arr: list, left: int, right: int) -> None:
     """In-place merge sort.
 
@@ -64,6 +65,7 @@ def merge_sort(arr: list, left: int, right: int) -> None:
         None
     """
     if left < right:
+        # floor division replicates C++ integer division
         mid = (left + right) // 2
         merge_sort(arr, left, mid)
         merge_sort(arr, mid + 1, right)
@@ -80,12 +82,12 @@ def partition(arr: list, low: int, high: int) -> int:
     arr[i + 1], arr[high] = arr[high], arr[i + 1]
     return i + 1
 
-
 def quick_sort(arr: list, low: int, high: int):
     """In-place optimized quicksort.
 
     Uses a randomized pivot and always recurses on the smaller partition
-    while iterating on the larger partition to limit recursion depth.
+    while iterating on the larger partition to limit recursion depth and 
+    prevent Python's Recursion Error.
 
     Args:
         arr: Mutable sequence to sort in-place.
@@ -98,6 +100,7 @@ def quick_sort(arr: list, low: int, high: int):
     while low < high:
         # pick random pivot and move it to end
         pivot_idx = random.randint(low, high)
+        # multiple assignment functionality replaces "Swap() in quick_sort"
         arr[pivot_idx], arr[high] = arr[high], arr[pivot_idx]
         p = partition(arr, low, high)
 
