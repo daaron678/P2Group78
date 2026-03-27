@@ -1,6 +1,7 @@
 import dataset
 import terminal
 import sort
+import time
 
 if __name__ == "__main__":
     selection = terminal.select_from_list(
@@ -9,6 +10,15 @@ if __name__ == "__main__":
     data = dataset.load_data(selection)
 
     print(f"\nSorting the '{selection}' column...")
+
+    print("\nSorting using sorted()...\n")
+    start_time = time.perf_counter()
+    sorted(data)
+    end_time = time.perf_counter()
+    ms_time = end_time - start_time
+    print(
+        f"sorted() succeeded in {ms_time:.6f} seconds..\n"
+    )
 
     print("\nSorting using Merge Sort...\n")
     is_correct, expected, actual, ms_time = sort.check_sort_fn(sort.merge_sort, data)
