@@ -1,7 +1,6 @@
 import dataset
 import terminal
 import sort
-import time
 
 if __name__ == "__main__":
     selection = terminal.select_from_list(
