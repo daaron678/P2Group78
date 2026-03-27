@@ -2,7 +2,8 @@ import random
 import time
 
 
-def check_sort_fn(sort_fn: callable, data: list):
+
+def check_sort_fn(sort_fn: callable, data: list) -> tuple[bool, list, list, float]:
     """Run a sorting function, verify correctness, and measure time.
 
     The provided `sort_fn` must sort `data` in-place and accept the
@@ -21,7 +22,7 @@ def check_sort_fn(sort_fn: callable, data: list):
     """
     expected = sorted(data)
     start_time = time.perf_counter()
-    sort_fn(data, 0, len(data) - 1)
+    sort_fn(data)
     end_time = time.perf_counter()
     return data == expected, expected, data, end_time - start_time
 
@@ -56,7 +57,7 @@ def merge(arr: list, left: int, mid: int, right: int) -> None:
         k += 1
 
 
-def merge_sort(arr: list, left: int, right: int) -> None:
+def merge_sort(arr: list, left: int = 0, right: int = None) -> None:
     """In-place merge sort.
 
     Sorts the subarray `arr[left:right+1]` in-place using merge sort.
@@ -70,6 +71,8 @@ def merge_sort(arr: list, left: int, right: int) -> None:
     Returns:
         None
     """
+    if right is None:
+        right = len(arr) - 1
     if left < right:
         mid = (left + right) // 2
         merge_sort(arr, left, mid)
@@ -88,7 +91,7 @@ def partition(arr: list, low: int, high: int) -> int:
     return i + 1
 
 
-def quick_sort(arr: list, low: int, high: int):
+def quick_sort(arr: list, low: int = 0, high: int = None):
     """In-place optimized quicksort.
 
     Uses a randomized pivot and always recurses on the smaller partition
@@ -102,6 +105,8 @@ def quick_sort(arr: list, low: int, high: int):
     Returns:
         None
     """
+    if high is None:
+        high = len(arr) - 1
     while low < high:
         # pick random pivot and move it to end
         pivot_idx = random.randint(low, high)
@@ -121,3 +126,17 @@ def quick_sort(arr: list, low: int, high: int):
             if p + 1 < high:
                 quick_sort(arr, p + 1, high)
             high = p - 1
+
+def native_sort(arr: list) -> None:
+    """Sort using Python's built-in sorted() function.
+
+    This is not truly in-place since sorted() returns a new list, but we
+    copy the sorted result back into the original list to allow for
+    consistent timing and comparison.
+
+    Args:
+        arr: List to sort (modified in-place).
+    """
+    sorted_arr = sorted(arr)
+    for i in range(len(arr)):
+        arr[i] = sorted_arr[i]
