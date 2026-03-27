@@ -12,10 +12,7 @@ if __name__ == "__main__":
     print(f"\nSorting the '{selection}' column...")
 
     print("\nSorting using sorted()...\n")
-    start_time = time.perf_counter()
-    sorted(data)
-    end_time = time.perf_counter()
-    ms_time = end_time - start_time
+    ms_time = sort.check_native_fn(data)
     print(
         f"sorted() succeeded in {ms_time:.6f} seconds..\n"
     )
