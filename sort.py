@@ -26,7 +26,7 @@ def check_sort_fn(sort_fn: callable, data: list):
     return data == expected, expected, data, end_time - start_time
 
 def check_native_fn(data: list):
-    """Run Python's native sorted() function and measures time.
+    """Run Python's native sorted() function and measure time.
     """
     start_time = time.perf_counter()
     sorted(data)
