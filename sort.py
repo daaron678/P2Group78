@@ -2,19 +2,6 @@ import random
 import time
 
 
-def check_native_fn(data: list):
-    """Run Python's native sorted() function and measure time.
-    Args: 
-        data: List to sort
-    Returns:
-        - elapsed_seconds (float): runtime in seconds.
-    """
-    start_time = time.perf_counter()
-    sorted(data)
-    end_time = time.perf_counter()
-    return end_time - start_time
-
-
 def check_sort_fn(sort_fn: callable, data: list):
     """Run a sorting function, verify correctness, and measure time.
 
@@ -38,6 +25,17 @@ def check_sort_fn(sort_fn: callable, data: list):
     end_time = time.perf_counter()
     return data == expected, expected, data, end_time - start_time
 
+def check_native_fn(data: list):
+    """Run Python's native sorted() function and measure time.
+    Args: 
+        data: List to sort
+    Returns:
+        - elapsed_seconds (float): runtime in seconds.
+    """
+    start_time = time.perf_counter()
+    sorted(data)
+    end_time = time.perf_counter()
+    return end_time - start_time
 
 def merge(arr: list, left: int, mid: int, right: int) -> None:
     X = arr[left : mid + 1]
