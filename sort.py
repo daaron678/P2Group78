@@ -2,7 +2,6 @@ import random
 import time
 
 
-
 def check_sort_fn(sort_fn: callable, data: list) -> tuple[bool, list, list, float]:
     """Run a sorting function, verify correctness, and measure time.
 
@@ -28,10 +27,13 @@ def check_sort_fn(sort_fn: callable, data: list) -> tuple[bool, list, list, floa
 
 
 def merge(arr: list, left: int, mid: int, right: int) -> None:
+    # create temporary arrays for the left and right halves
     X = arr[left : mid + 1]
     Y = arr[mid + 1 : right + 1]
     i = j = 0
     k = left
+
+    # set up pointers for X and Y and compare the smallest elements of each half to copy back into the original array
     while i < len(X) and j < len(Y):
         if X[i] <= Y[j]:
             arr[k] = X[i]
@@ -40,6 +42,8 @@ def merge(arr: list, left: int, mid: int, right: int) -> None:
             arr[k] = Y[j]
             j += 1
         k += 1
+
+    # once one half is fully copied, copy the remaining elements of the other half (if any)
     while i < len(X):
         arr[k] = X[i]
         i += 1
@@ -66,26 +70,41 @@ def merge_sort(arr: list, left: int = 0, right: int = None) -> None:
     """
     if right is None:
         right = len(arr) - 1
+
     if left < right:
-        mid = (left + right) // 2
-        merge_sort(arr, left, mid)
-        merge_sort(arr, mid + 1, right)
-        merge(arr, left, mid, right)
+        mid = (left + right) // 2  # find the middle
+        merge_sort(arr, left, mid)  # call left half
+        merge_sort(arr, mid + 1, right)  # call right half
+        merge(arr, left, mid, right)  # merge the sorted halves
 
 
 def partition(arr: list, low: int, high: int) -> int:
-    pivot = arr[high]
+    # Hoare partition scheme using the first element as the pivot and two pointers that move towards each other
+    pivot = arr[low]
     i = low - 1
-    for j in range(low, high):
-        if arr[j] <= pivot:
+    j = high + 1
+
+    while True:
+        # move the left pointer right
+        i += 1
+        while arr[i] < pivot:
             i += 1
-            arr[i], arr[j] = arr[j], arr[i]
-    arr[i + 1], arr[high] = arr[high], arr[i + 1]
-    return i + 1
+
+        # move the right pointer left
+        j -= 1
+        while arr[j] > pivot:
+            j -= 1
+
+        # if pointers meet, return the division point
+        if i >= j:
+            return j
+
+        # swap elements at the pointers
+        arr[i], arr[j] = arr[j], arr[i]
 
 
 def quick_sort(arr: list, low: int = 0, high: int = None):
-    """In-place optimized quicksort.
+    """In-place quicksort.
 
     Uses a randomized pivot and always recurses on the smaller partition
     while iterating on the larger partition to limit recursion depth.
@@ -100,25 +119,25 @@ def quick_sort(arr: list, low: int = 0, high: int = None):
     """
     if high is None:
         high = len(arr) - 1
+
     while low < high:
-        # pick random pivot and move it to end
+        # select a random pivot and move it to the front
         pivot_idx = random.randint(low, high)
-        arr[pivot_idx], arr[high] = arr[high], arr[pivot_idx]
+        arr[low], arr[pivot_idx] = arr[pivot_idx], arr[low]
+
         p = partition(arr, low, high)
 
-        # sizes of left and right partitions
-        left_size = p - 1 - low
-        right_size = high - (p + 1)
+        left_size = p - low + 1
+        right_size = high - p
 
-        # recurse on smaller partition first
+        # recurse on the smaller partition to minimize calls and loop to process the larger partition
         if left_size < right_size:
-            if low < p - 1:
-                quick_sort(arr, low, p - 1)
-            low = p + 1
+            quick_sort(arr, low, p)
+            low = p + 1  # loops to do right side
         else:
-            if p + 1 < high:
-                quick_sort(arr, p + 1, high)
-            high = p - 1
+            quick_sort(arr, p + 1, high)
+            high = p  # loops to do left side
+
 
 def native_sort(arr: list) -> None:
     """Sort using Python's built-in sorted() function.

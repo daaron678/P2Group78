@@ -22,7 +22,7 @@ if __name__ == "__main__":
         f"Merge Sort { 'succeeded' if is_correct else 'failed' } in {merge_time:.6f} seconds.\n"
     )
 
-    print('\nSorting using "Quick" Sort...')
+    print('\nSorting using Quick Sort...')
     is_correct, expected, actual, quick_time = sort.check_sort_fn(sort.quick_sort, data)
     print(
         f"Quick Sort { 'succeeded' if is_correct else 'failed' } in {quick_time:.6f} seconds.\n"
