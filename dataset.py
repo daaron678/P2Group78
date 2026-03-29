@@ -1,4 +1,5 @@
 import csv
+import random
 
 
 def load_data(column_name, csv_path="diabetes_dataset.csv"):
@@ -36,6 +37,8 @@ def load_data(column_name, csv_path="diabetes_dataset.csv"):
             except ValueError:
                 data.append(value)
 
+    # randomize the order of the data to avoid best/worst case scenarios
+    random.shuffle(data)
     return data
 
 
